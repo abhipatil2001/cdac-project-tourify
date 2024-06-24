@@ -53,11 +53,11 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Role roleId;
 	
-	@Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", columnDefinition = "INTEGER(1) DEFAULT 0")
+    private Integer isDeleted = 0;
     
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDateTime createdAt;
 
     
 	// mapped FK
@@ -71,8 +71,8 @@ public class User {
 	
     //Methods
     
-    @PrePersist   // Invoked automatically before an entity is persisted(inserted) into the db
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
+//    @PrePersist   // Invoked automatically before an entity is persisted(inserted) into the db
+//    protected void onCreate() {
+//        createdAt = LocalDateTime.now();
+//    }
 }

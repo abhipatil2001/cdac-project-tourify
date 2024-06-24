@@ -32,10 +32,10 @@ public class Place {
 	@Column(name = "place", nullable = false, length = 100)
 	private String place;
 	
-	@Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", columnDefinition = "INTEGER(1) DEFAULT 0")
+    private Integer isDeleted = 0;
 	
-	@Column(name = "created_at", nullable = false, updatable = false)
+	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime createdAt;
 	
 	// mapped FK
@@ -44,8 +44,8 @@ public class Place {
 	
 	//Methods
 	
-	@PrePersist
-	protected void onCreate() {
-		createdAt = LocalDateTime.now();
-	}
+//	@PrePersist
+//	protected void onCreate() {
+//		createdAt = LocalDateTime.now();
+//	}
 }

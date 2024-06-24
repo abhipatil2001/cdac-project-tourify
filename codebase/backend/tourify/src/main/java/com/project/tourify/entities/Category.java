@@ -36,10 +36,10 @@ public class Category {
 	@Column(name = "description", nullable = false, length = 500)
 	private String description;
 	
-	@Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", columnDefinition = "INTEGER(1) DEFAULT 0")
+    private Integer isDeleted = 0;
 	
-	@Column(name = "created_at", nullable = false, updatable = false)
+	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime createdAt;
 	
 	// mapped FK
@@ -49,8 +49,8 @@ public class Category {
 	
 	//Methods
 	
-	@PrePersist
-	protected void onCreate() {
-		createdAt = LocalDateTime.now();
-	}
+//	@PrePersist
+//	protected void onCreate() {
+//		createdAt = LocalDateTime.now();
+//	}
 }
