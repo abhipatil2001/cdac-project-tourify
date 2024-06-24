@@ -34,10 +34,10 @@ public class Review {
 	@Column(name = "rating", nullable = false)
 	private int rating;
 	
-	@Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", columnDefinition = "INTEGER(1) DEFAULT 0")
+    private Integer isDeleted = 0;
 	
-	@Column(name = "created_at", nullable = false, updatable = false)
+	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime createdAt;
 	
 	// add FK: property_id
@@ -48,9 +48,9 @@ public class Review {
 	
 	//Methods
 	
-	@PrePersist
-	protected void onCreate() {
-		createdAt = LocalDateTime.now();
-	}
+//	@PrePersist
+//	protected void onCreate() {
+//		createdAt = LocalDateTime.now();
+//	}
 
 }

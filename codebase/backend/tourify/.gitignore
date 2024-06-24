@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### STS workspace specific folder ###
+../.metadata
