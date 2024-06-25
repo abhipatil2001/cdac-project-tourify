@@ -48,9 +48,9 @@ public class Review {
 	
 	//Methods
 	
-//	@PrePersist
-//	protected void onCreate() {
-//		createdAt = LocalDateTime.now();
-//	}
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+	}
 
 }

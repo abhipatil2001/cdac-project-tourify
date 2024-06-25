@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,7 +47,7 @@ public class Booking {
 	private LocalDateTime createdAt;
 	
 	// add FK: user_id, property_id, status_id
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User userId;
 	
@@ -60,8 +61,8 @@ public class Booking {
 	
 	//Methods
 	
-//	@PrePersist
-//	protected void onCreate() {
-//		createdAt = LocalDateTime.now();
-//	}
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+	}
 }

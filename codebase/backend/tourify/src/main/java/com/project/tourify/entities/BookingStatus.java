@@ -41,14 +41,14 @@ public class BookingStatus {
 	
 	
 	// mapped FK
-	@OneToOne(mappedBy = "statusId")
-	private Booking booking;
+//	@OneToOne(mappedBy = "statusId")
+//	private Booking booking;
 	
 	
 	//Methods
 	
-//	@PrePersist
-//	protected void onCreate() {
-//		createdAt = LocalDateTime.now();
-//	}
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+	}
 }
