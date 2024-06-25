@@ -43,14 +43,14 @@ public class Category {
 	private LocalDateTime createdAt;
 	
 	// mapped FK
-	@OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL)
-	private List<Property> propertyList = new ArrayList<>();
+//	@OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL)
+//	private List<Property> propertyList = new ArrayList<>();
 	
 	
 	//Methods
 	
-//	@PrePersist
-//	protected void onCreate() {
-//		createdAt = LocalDateTime.now();
-//	}
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+	}
 }

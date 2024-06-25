@@ -13,7 +13,10 @@ import com.project.tourify.exceptions.ResourceNotFoundException;
 import com.project.tourify.repositories.IUserRepo;
 import com.project.tourify.services.IUserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserServiceImpl implements IUserService{
 
 	@Autowired
@@ -33,6 +36,10 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public UserDto updateUser(UserDto userDto, Long userId) {
 		User user = this.iUserRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+	    user.setName(userDto.getName());
+	    user.setPhone(userDto.getPhone());
+	    user.setPassword(userDto.getPassword());
+	    user.setAddress(userDto.getAddress());
 		User updatedUser = this.iUserRepo.save(user);
 		return this.modelMapper.map(updatedUser, UserDto.class);
 	}

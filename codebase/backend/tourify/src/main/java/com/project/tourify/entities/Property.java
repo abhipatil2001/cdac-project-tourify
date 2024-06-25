@@ -68,16 +68,16 @@ public class Property {
 	
 	
 	// mapped FK
-	@OneToMany(mappedBy = "propertyId", cascade = CascadeType.ALL)
-	private List<Review> reviewList = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "propertyId", cascade = CascadeType.ALL)
-	private List<Booking> bookingList = new ArrayList<>();
+//	@OneToMany(mappedBy = "propertyId", cascade = CascadeType.ALL)
+//	private List<Review> reviewList = new ArrayList<>();
+//	
+//	@OneToMany(mappedBy = "propertyId", cascade = CascadeType.ALL)
+//	private List<Booking> bookingList = new ArrayList<>();
 	
 	//Methods
 	
-//	@PrePersist
-//	protected void onCreate() {
-//		createdAt = LocalDateTime.now();
-//	}
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+	}
 }

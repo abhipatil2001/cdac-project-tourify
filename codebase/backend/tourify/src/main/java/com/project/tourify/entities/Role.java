@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,17 +41,16 @@ public class Role {
 	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime createdAt;
 
-	// mapped FK
-	@OneToMany(mappedBy = "roleId", cascade = CascadeType.ALL)
-	private List<User> userList = new ArrayList<>();
+//	// mapped FK
+//	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+//	private List<User> userList = new ArrayList<>();
 	
 	
 	//Methods
 	
-//	@PrePersist
-//	protected void onCreate() {
-//		createdAt = LocalDateTime.now();
-//	}
-	
-	
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+	}
+		
 }
