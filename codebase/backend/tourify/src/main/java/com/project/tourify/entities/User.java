@@ -60,17 +60,16 @@ public class User {
 	@Column(name = "address", nullable = false, length = 100)
 	private String address;
 	
-	// add FK : role_id
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id" , referencedColumnName = "id")
-	private Role role;
-	
     @Column(name = "is_deleted", columnDefinition = "INTEGER(1) DEFAULT 0")
     private Integer isDeleted = 0;
     
 	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime createdAt;
 
+	// add FK : role_id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_id" , referencedColumnName = "id")
+	private Role role;
     
 	// mapped FK
 
@@ -93,7 +92,7 @@ public class User {
 //    	this.role = new Role();
 //    	this.role.setId(id);
 //    }
-    
+//    
 //    public Long getRoleId() {
 //    	return role.getId();
 //    }
