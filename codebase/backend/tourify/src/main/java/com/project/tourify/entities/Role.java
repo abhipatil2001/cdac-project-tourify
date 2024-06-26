@@ -51,9 +51,9 @@ public class Role {
 	private LocalDateTime createdAt;
 
 //	// mapped FK
-	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-	private List<User> userList = new ArrayList<>();
-	
+//	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+//	private List<User> userList = new ArrayList<>();
+//	
 	
 	//Methods
 	

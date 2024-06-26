@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -51,10 +52,19 @@ public class Review {
 	
 	// add FK: property_id
 	
-	@ManyToOne
-	@JoinColumn(name = "property_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "property_id" , referencedColumnName = "id")
 	private Property propertyId;
 	
+	//GETTERS SETTERS
+	public void setPropertyId(Long id) { 
+		this.propertyId = new Property();
+		this.propertyId.setId(id);
+	}
+	
+	public Long getPropertyId() {
+		return propertyId.getId();
+	}
 	//Methods
 	
 	@PrePersist
