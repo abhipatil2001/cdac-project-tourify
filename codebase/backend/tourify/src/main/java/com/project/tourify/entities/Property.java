@@ -84,6 +84,35 @@ public class Property {
 //	@OneToMany(mappedBy = "propertyId", cascade = CascadeType.ALL)
 //	private List<Booking> bookingList = new ArrayList<>();
 	
+	// GETTERS and SETTERS
+	public void setPlaceId(Long id) {
+		this.placeId = new Place();
+		this.placeId.setId(id);
+	}
+	
+	public Long getPlaceId() {
+		return this.placeId.getId();
+	}
+	
+	public void setCategoryId(Long id) {
+		this.categoryId = new Category();
+		this.categoryId.setId(id);
+	}
+	
+	public Long getCategoryId() {
+		return this.categoryId.getId();
+	}
+	
+	public void setUserId(Long id) {
+		this.userId = new User();
+		this.userId.setId(id);
+	}
+	
+	public Long getUserId() {
+		return this.userId.getId();
+	}
+	
+	
 	//Methods
 	
 	@PrePersist
