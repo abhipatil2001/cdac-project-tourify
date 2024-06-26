@@ -1,5 +1,6 @@
 package com.project.tourify.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,11 +20,19 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "properties_tb")
-@Data
+//@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class Property {
@@ -54,17 +64,17 @@ public class Property {
 	private LocalDateTime createdAt;
 	
 	// add FK: place_id, category_id, user_id
-	@ManyToOne
-	@JoinColumn(name = "place_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "place_id", referencedColumnName = "id")
 	private Place placeId;
 	
-	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category categoryId;
 	
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private User userId; 
 	
 	
 	// mapped FK
