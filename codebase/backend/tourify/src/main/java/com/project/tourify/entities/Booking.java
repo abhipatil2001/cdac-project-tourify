@@ -17,11 +17,19 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "bookings_tb")
-@Data
+//@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class Booking {
@@ -48,18 +56,46 @@ public class Booking {
 	
 	// add FK: user_id, property_id, status_id
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id" , referencedColumnName = "id")
 	private User userId;
 	
-	@ManyToOne
-	@JoinColumn(name = "property_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "property_id" , referencedColumnName = "id")
 	private Property propertyId;
 	
-	@OneToOne
-	@JoinColumn(name = "status_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "status_id" , referencedColumnName = "id")
 	private BookingStatus statusId;
 	
-	//Methods
+	//GETTERS SETTERS
+	public void setUserId(Long id) { 
+		this.userId = new User();
+		this.userId.setId(id);
+	}
+	
+	public void setPropertyId(Long id) {
+		this.propertyId = new Property();
+		this.propertyId.setId(id);
+	}
+	
+	public void setStatusId(Long id) {
+		this.statusId = new BookingStatus();
+		this.statusId.setId(id);
+	}
+	
+	public Long getPropertyId() {
+		return propertyId.getId();
+	}
+	
+	public Long getUserId() {
+		return userId.getId();
+	}
+	
+	public Long getStatusId() {
+		return statusId.getId();
+	}
+	
+
 	
 	@PrePersist
 	protected void onCreate() {

@@ -1,5 +1,6 @@
 package com.project.tourify.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,19 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users_tb")
-@Data
+//@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -52,8 +61,8 @@ public class User {
 	private String address;
 	
 	// add FK : role_id
-	@ManyToOne
-	@JoinColumn(name = "role_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_id" , referencedColumnName = "id")
 	private Role role;
 	
     @Column(name = "is_deleted", columnDefinition = "INTEGER(1) DEFAULT 0")
@@ -81,12 +90,12 @@ public class User {
     }
     
 //    public void setRoleId(Long id) { 
-//    	this.roleId = new Role();
-//    	this.roleId.setId(id);
+//    	this.role = new Role();
+//    	this.role.setId(id);
 //    }
-//    
+    
 //    public Long getRoleId() {
-//    	return roleId.getId();
+//    	return role.getId();
 //    }
     
 }
