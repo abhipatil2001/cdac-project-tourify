@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.tourify.dtos.PropertyDto;
 import com.project.tourify.entities.Property;
+import com.project.tourify.entities.User;
 import com.project.tourify.repositories.IPropertyRepo;
 import com.project.tourify.services.IPropertyService;
 
@@ -34,5 +35,19 @@ public class PropertyServiceImpl implements IPropertyService{
 		List<PropertyDto> allPropsDto = allProps.stream().map(property -> this.modelMapper.map(property, PropertyDto.class)).collect(Collectors.toList());
 		return allPropsDto;
 	}
+
+	@Override
+	public List<PropertyDto> getPropertiesByUserId(Long userId) {
+		User user = new User();
+        user.setId(userId);
+         List<Property> props = propertyRepo.findByUserId(user);
+         
+         // now I have userId, placeId, categoryId
+         // so can get any value of User, Place and Category Entity if needed
+         
+         List<PropertyDto> propsDto = props.stream().map(prop -> this.modelMapper.map(prop, PropertyDto.class)).collect(Collectors.toList());
+		return propsDto;
+	}
+
 
 }
