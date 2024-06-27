@@ -1,6 +1,7 @@
 package com.project.tourify.dtos;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -34,4 +35,5 @@ public class PropertyDto {
 	private Long categoryId;
 	
 	private Long userId;
+
 }

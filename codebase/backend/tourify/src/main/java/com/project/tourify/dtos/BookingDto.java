@@ -35,7 +35,13 @@ public class BookingDto {
 	
 	private Long userId;
 	
+	private String name;
+	
 	private Long propertyId;
 	
+	private String title;
+	
 	private Long statusId;
+	
+	private String status;
 }
