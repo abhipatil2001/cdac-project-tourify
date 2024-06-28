@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.tourify.dtos.BookingDto;
+import com.project.tourify.dtos.BookingDto2;
 import com.project.tourify.entities.Booking;
 import com.project.tourify.entities.BookingStatus;
 import com.project.tourify.entities.Property;
@@ -40,10 +41,10 @@ public class BookingServiceImpl implements IBookingService{
 	
 	
 	@Override
-	public BookingDto bookProperty(BookingDto bookingDto) {
-		Booking booking = this.modelMapper.map(bookingDto, Booking.class);
+	public BookingDto2 bookProperty(BookingDto2 bookingDto2) {
+		Booking booking = this.modelMapper.map(bookingDto2, Booking.class);
 		Booking bookingSaved = this.bookingRepo.save(booking);
-		return this.modelMapper.map(bookingSaved, BookingDto.class);
+		return this.modelMapper.map(bookingSaved, BookingDto2.class);
 	}
 
 	 @Override

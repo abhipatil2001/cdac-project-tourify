@@ -37,5 +37,5 @@ public class UserDto {
 	
 	private String address;
 	
-	private int roleId;
+	private Long roleId;
 }

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.tourify.dtos.UserDto;
+import com.project.tourify.entities.Role;
 import com.project.tourify.entities.User;
 import com.project.tourify.exceptions.ResourceNotFoundException;
+import com.project.tourify.repositories.IRoleRepo;
 import com.project.tourify.repositories.IUserRepo;
 import com.project.tourify.services.IUserService;
 
@@ -23,8 +25,12 @@ public class UserServiceImpl implements IUserService{
 	private IUserRepo iUserRepo;
 	
 	@Autowired
+	private IRoleRepo roleRepo;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 	
+
 	
 	@Override
 	public UserDto createUser(UserDto userDto) {
@@ -47,7 +53,20 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public UserDto getUserById(Long userId) {
 		User user = this.iUserRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
-		return this.modelMapper.map(user, UserDto.class);
+		Long roleId = user.getRole().getId();
+		Role role = this.roleRepo.findById(roleId).orElseThrow(()-> new ResourceNotFoundException("Role", "roleId", roleId));
+//		System.out.println("Role using sysout: " + role);
+//		log.info("Role using logger: "+ role);
+		UserDto userDto = new UserDto();
+		userDto.setId(user.getId());
+		userDto.setName(user.getName());
+		userDto.setEmail(user.getEmail());
+		userDto.setPassword(user.getPassword());
+		userDto.setAddress(user.getAddress());
+		userDto.setPhone(user.getPhone());
+		userDto.setRoleId(role.getId());
+//		log.info("UserDto: " + userDto);
+		return userDto;
 	}
 
 	@Override
