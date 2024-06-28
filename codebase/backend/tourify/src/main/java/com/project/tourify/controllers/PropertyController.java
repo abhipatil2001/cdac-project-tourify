@@ -57,5 +57,14 @@ public class PropertyController {
     	ApiResponse<PropertyDto> response = new ApiResponse<>("success", propertiesByPlaceId);
     	return response;
     }
+    
+    
+    // get all properties of owner from that city
+    @GetMapping("/{uId}/{pId}")
+    public ApiResponse<PropertyDto> getPropsByUserIdAndPlaceId(@PathVariable Long uId, @PathVariable Long pId) {
+    	List<PropertyDto> propsByUserIdAndPlaceId = this.propertyService.getPropsByUserIdAndPlaceId(uId, pId);
+    	ApiResponse<PropertyDto> response = new ApiResponse<>("success", propsByUserIdAndPlaceId);
+    	return response;
+    }
 	
 }

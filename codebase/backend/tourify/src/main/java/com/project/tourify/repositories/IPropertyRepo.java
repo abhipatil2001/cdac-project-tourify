@@ -19,4 +19,6 @@ public interface IPropertyRepo extends JpaRepository<Property, Long> {
     List<Property> findByUserId(User user);
     
     List<Property> findByPlaceId(Place place);
+    
+    List<Property> findByUserIdAndPlaceId(User user, Place place);
 }
