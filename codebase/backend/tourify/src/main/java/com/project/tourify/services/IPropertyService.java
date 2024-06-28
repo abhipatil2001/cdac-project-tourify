@@ -12,4 +12,6 @@ public interface IPropertyService{
 	List<PropertyDto> getAllProperties();
 
 	List<PropertyDto> getPropertiesByUserId(Long userId);
+	
+	List<PropertyDto> getPropertiesByPlaceId(Long placeId);
 }

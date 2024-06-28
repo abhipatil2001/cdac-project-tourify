@@ -1,5 +1,6 @@
 package com.project.tourify.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.tourify.dtos.PropertyDto;
 import com.project.tourify.entities.Property;
+import com.project.tourify.response.ApiResponse;
 import com.project.tourify.services.IPropertyService;
 
 @RestController
@@ -24,22 +26,36 @@ public class PropertyController {
 	private IPropertyService propertyService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<PropertyDto> addProperty(@RequestBody PropertyDto propertyDto){
+	public ApiResponse<PropertyDto> addProperty(@RequestBody PropertyDto propertyDto){
 		PropertyDto addedProperty = this.propertyService.addProperty(propertyDto);
-		return new ResponseEntity<PropertyDto>(addedProperty, HttpStatus.CREATED);
+		List<PropertyDto> propDtoList = new ArrayList<>();
+		propDtoList.add(addedProperty);
+		
+		ApiResponse<PropertyDto> response = new ApiResponse<>("success", propDtoList);
+		return response;
 	}
 	
 	@GetMapping("/get/all")
-	public List<PropertyDto> getMyAllProps() {
+	public ApiResponse<PropertyDto> getMyAllProps() {
 		List<PropertyDto> allProperties = this.propertyService.getAllProperties();
-		return allProperties;
+		ApiResponse<PropertyDto> response = new ApiResponse<>("success", allProperties);
+		return response;
 	}
 	
 	// get all properties of owner
     @GetMapping("/owner/{id}")
-    public List<PropertyDto> getPropertiesByUserId(@PathVariable Long id) {
+    public ApiResponse<PropertyDto> getPropertiesByUserId(@PathVariable Long id) {
         List<PropertyDto> propertiesByUserId = this.propertyService.getPropertiesByUserId(id);
-        return propertiesByUserId;
+        ApiResponse<PropertyDto> response = new ApiResponse<>("success", propertiesByUserId);
+        return response;
+    }
+    
+    // get all properties from particular city
+    @GetMapping("/place/{id}")
+    public ApiResponse<PropertyDto> getPropertiesByPlaceId(@PathVariable Long id) {
+    	List<PropertyDto> propertiesByPlaceId = this.propertyService.getPropertiesByPlaceId(id);
+    	ApiResponse<PropertyDto> response = new ApiResponse<>("success", propertiesByPlaceId);
+    	return response;
     }
 	
 }

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.tourify.dtos.PropertyDto;
+import com.project.tourify.entities.Place;
 import com.project.tourify.entities.Property;
 import com.project.tourify.entities.User;
 
@@ -16,4 +17,6 @@ public interface IPropertyRepo extends JpaRepository<Property, Long> {
 
     // Custom finder method to get properties by userId
     List<Property> findByUserId(User user);
+    
+    List<Property> findByPlaceId(Place place);
 }

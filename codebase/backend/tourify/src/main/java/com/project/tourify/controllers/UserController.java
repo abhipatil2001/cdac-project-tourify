@@ -1,10 +1,10 @@
 package com.project.tourify.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.tourify.dtos.UserDto;
+import com.project.tourify.response.ApiResponse;
 import com.project.tourify.services.IUserService;
 
 @RestController
@@ -24,42 +24,53 @@ import com.project.tourify.services.IUserService;
 public class UserController {
 
 	@Autowired
-	private IUserService iUserService;
+	private IUserService userService;
 	
 	
 	// ADD USER
 	@PostMapping("/register")
-	public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto) {
-		UserDto createdUser = this.iUserService.createUser(userDto);
-		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+	public ResponseEntity<ApiResponse<UserDto>> registerUser(@RequestBody UserDto userDto) {
+		UserDto registeredUser = this.userService.createUser(userDto);
+	    List<UserDto> userDtoList = new ArrayList<>();
+	    userDtoList.add(registeredUser);
+	    ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", userDtoList);
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}	
 	
-	// GET Single USER
+	// GET Single USER	
 	@GetMapping("/get/{id}")
-	public ResponseEntity<UserDto> getUser(@PathVariable (name = "id") Long id){
-		UserDto foundUser = this.iUserService.getUserById(id);
-		return new ResponseEntity<>(foundUser, HttpStatus.OK);
+	public ResponseEntity<ApiResponse<UserDto>> getUser(@PathVariable(name = "id") Long id) {
+	    UserDto foundUser = this.userService.getUserById(id);
+	    List<UserDto> userDtoList = new ArrayList<>();
+	    userDtoList.add(foundUser);
+	    ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", userDtoList);
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
 	
 	// GET All USERS
 	@GetMapping("/get/all")
-	public List<UserDto> getAllUsers() {
-		List<UserDto> allUsers = this.iUserService.getAllUsers();
-		return allUsers;
+	public ApiResponse<UserDto> getAllUsers() {
+		List<UserDto> allUsers = this.userService.getAllUsers();
+		ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", allUsers);
+		return response;
 	}
 	
 	// DELETE USER
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Boolean> deleteUser(@PathVariable Long id){
-		this.iUserService.deleteUser(id);
+		this.userService.deleteUser(id);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
 	// UPDATE USER
 	@PutMapping("/update/{id}")
-	public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
-		UserDto updateUser = this.iUserService.updateUser(userDto, id);
-		return new ResponseEntity<UserDto>(updateUser, HttpStatus.OK);
+	public ApiResponse<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+		UserDto updateUser = this.userService.updateUser(userDto, id);
+		List<UserDto> userDtos = new ArrayList<>();
+		userDtos.add(updateUser);
+		ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", userDtos);
+		return response;
 	}
 	
 	

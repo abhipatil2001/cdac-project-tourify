@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.tourify.dtos.PlaceDto;
+import com.project.tourify.response.ApiResponse;
 import com.project.tourify.services.IPlaceService;
 
 @RestController
@@ -18,7 +19,9 @@ public class PlaceContoller {
 	private IPlaceService placeService;
 	
 	@GetMapping("/all")
-	public List<PlaceDto> getAllPlaces(){
-		return this.placeService.getAllCities();
+	public ApiResponse<PlaceDto> getAllPlaces(){
+		List<PlaceDto> allPlaces = this.placeService.getAllCities();
+		ApiResponse<PlaceDto> response = new ApiResponse<>("success", allPlaces);
+		return response;
 	}
 }
