@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.tourify.dtos.PropertyDetailsDTO;
 import com.project.tourify.dtos.PropertyDto;
 import com.project.tourify.entities.Place;
 import com.project.tourify.entities.Property;
@@ -41,18 +42,6 @@ public class PropertyServiceImpl implements IPropertyService{
 		return allPropsDto;
 	}
 
-	@Override
-	public List<PropertyDto> getPropertiesByUserId(Long userId) {
-		User user = new User();
-        user.setId(userId);
-         List<Property> propsByUserId = propertyRepo.findByUserId(user);
-         
-         // now I have userId, placeId, categoryId
-         // so can get any value of User, Place and Category Entity if needed
-         
-         List<PropertyDto> propsDto = propsByUserId.stream().map(prop -> this.modelMapper.map(prop, PropertyDto.class)).collect(Collectors.toList());
-		return propsDto;
-	}
 
 	@Override
 	public List<PropertyDto> getPropertiesByPlaceId(Long placeId) {
@@ -75,6 +64,12 @@ public class PropertyServiceImpl implements IPropertyService{
 		List<Property> findByUserIdAndPlaceId = this.propertyRepo.findByUserIdAndPlaceId(user, place);
 		List<PropertyDto>  findByUserIdAndPlaceIdDto = findByUserIdAndPlaceId.stream().map(prop -> modelMapper.map(prop, PropertyDto.class)).collect(Collectors.toList());
 		return findByUserIdAndPlaceIdDto;
+	}
+
+	@Override
+	public List<PropertyDetailsDTO> findPropertiesByUserId(Long userId) {
+		List<PropertyDetailsDTO> propsBasedOnUserId = this.propertyRepo.findPropertiesByUserId(userId);
+		return propsBasedOnUserId;
 	}
 	
 	

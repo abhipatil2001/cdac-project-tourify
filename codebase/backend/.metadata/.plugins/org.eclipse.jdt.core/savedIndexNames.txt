@@ -82,7 +82,6 @@ INDEX VERSION 1.134+E:\CDAC_2024\Project_JavaStack\codebase\backend\.metadata\.p
 3549574061.index
 1155952006.index
 220604793.index
-726827753.index
 2820380442.index
 3980192077.index
 439062702.index

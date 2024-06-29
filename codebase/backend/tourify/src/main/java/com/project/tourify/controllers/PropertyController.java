@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.tourify.dtos.PropertyDetailsDTO;
 import com.project.tourify.dtos.PropertyDto;
 import com.project.tourify.entities.Property;
 import com.project.tourify.response.ApiResponse;
@@ -42,13 +43,6 @@ public class PropertyController {
 		return response;
 	}
 	
-	// get all properties of owner
-    @GetMapping("/owner/{id}")
-    public ApiResponse<PropertyDto> getPropertiesByUserId(@PathVariable Long id) {
-        List<PropertyDto> propertiesByUserId = this.propertyService.getPropertiesByUserId(id);
-        ApiResponse<PropertyDto> response = new ApiResponse<>("success", propertiesByUserId);
-        return response;
-    }
     
     // get all properties from particular city
     @GetMapping("/place/{id}")
@@ -65,6 +59,13 @@ public class PropertyController {
     	List<PropertyDto> propsByUserIdAndPlaceId = this.propertyService.getPropsByUserIdAndPlaceId(uId, pId);
     	ApiResponse<PropertyDto> response = new ApiResponse<>("success", propsByUserIdAndPlaceId);
     	return response;
+    }
+    
+    // get all properties based on user Id
+    @GetMapping("/owner/{id}")
+    public ApiResponse<PropertyDetailsDTO> getPropsBasedOnUserId(@PathVariable(name = "id") Long userId) {
+    	List<PropertyDetailsDTO> propsDto = this.propertyService.findPropertiesByUserId(userId);
+    	 return new ApiResponse<>("success", propsDto);
     }
 	
 }
