@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.tourify.dtos.BookingDto;
 import com.project.tourify.dtos.BookingDto2;
+import com.project.tourify.dtos.BookingsDetailsDto;
 import com.project.tourify.entities.Booking;
 import com.project.tourify.entities.BookingStatus;
 import com.project.tourify.entities.Property;
@@ -71,6 +72,11 @@ public class BookingServiceImpl implements IBookingService{
 
 	        return bookingsDto;
 	    }
+
+	@Override
+	public List<BookingsDetailsDto> getBookingsOfOwnersProps(Long ownerId) {
+		return this.bookingRepo.findBookingsOfOwnersProps(ownerId);
+	}
 
 }
 
