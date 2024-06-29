@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.tourify.dtos.BookingDto;
 import com.project.tourify.dtos.BookingDto2;
+import com.project.tourify.dtos.BookingsDetailsDto;
 import com.project.tourify.response.ApiResponse;
 import com.project.tourify.services.IBookingService;
 
@@ -39,5 +40,12 @@ public class BookingController {
 		List<BookingDto> bookingsByUserId = this.bookingService.getBookingsByUserId(id);
 		ApiResponse<BookingDto> response = new ApiResponse<>("success", bookingsByUserId);
 		return response;
+	}
+	
+	// get all bookings of owner's props
+	@GetMapping("/ownerprops/bookings/{id}")
+	public ApiResponse<BookingsDetailsDto> getBookingsOfOwnersProps(@PathVariable(name = "id") Long ownerId) {
+		List<BookingsDetailsDto> bookingsOfOwnersPropsDto = this.bookingService.getBookingsOfOwnersProps(ownerId);
+		return new ApiResponse<>("success", bookingsOfOwnersPropsDto);
 	}
 }
