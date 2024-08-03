@@ -3,6 +3,7 @@ package com.project.tourify.services;
 import java.util.List;
 
 import com.project.tourify.dtos.UserDto;
+import com.project.tourify.dtos.UserLoginDto;
 
 public interface IUserService {
 
@@ -15,4 +16,6 @@ public interface IUserService {
 	List<UserDto> getAllUsers();
 	
 	void deleteUser(Long userId);
+	
+	UserDto loginUser(UserLoginDto userLoginDto);
 }

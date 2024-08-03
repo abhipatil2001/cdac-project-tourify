@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.tourify.dtos.UserDto;
+import com.project.tourify.dtos.UserLoginDto;
 import com.project.tourify.response.ApiResponse;
 import com.project.tourify.services.IUserService;
 
@@ -26,6 +27,15 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 	
+	// Login User
+	@PostMapping("/login")
+	public ResponseEntity<ApiResponse<UserDto>> loginUser(@RequestBody UserLoginDto userLoginDto) {
+		UserDto loginUser = this.userService.loginUser(userLoginDto);
+		List<UserDto> userDtoList = new ArrayList<>();
+	    userDtoList.add(loginUser);
+	    ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", userDtoList);
+	    return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 	
 	// ADD USER
 	@PostMapping("/register")

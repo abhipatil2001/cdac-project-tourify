@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.tourify.dtos.UserDto;
+import com.project.tourify.dtos.UserLoginDto;
 import com.project.tourify.entities.Role;
 import com.project.tourify.entities.User;
 import com.project.tourify.exceptions.ResourceNotFoundException;
@@ -15,6 +16,7 @@ import com.project.tourify.repositories.IRoleRepo;
 import com.project.tourify.repositories.IUserRepo;
 import com.project.tourify.services.IUserService;
 
+import jakarta.persistence.NoResultException;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -80,6 +82,12 @@ public class UserServiceImpl implements IUserService{
 	public void deleteUser(Long userId) {
 		User user = this.iUserRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 		this.iUserRepo.delete(user);
+	}
+	
+	@Override
+	public UserDto loginUser(UserLoginDto userLoginDto) {
+	    User loginUser = this.iUserRepo.findByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
+	    return this.modelMapper.map(loginUser, UserDto.class);
 	}
 
 }

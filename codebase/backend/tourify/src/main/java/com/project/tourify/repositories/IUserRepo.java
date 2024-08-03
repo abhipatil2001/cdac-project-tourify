@@ -6,4 +6,6 @@ import com.project.tourify.entities.User;
 
 public interface IUserRepo extends JpaRepository<User, Long> {
 
+	User findByEmailAndPassword(String email, String password);
+	
 }
