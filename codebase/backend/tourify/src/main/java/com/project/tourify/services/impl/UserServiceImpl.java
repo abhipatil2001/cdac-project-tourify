@@ -86,7 +86,16 @@ public class UserServiceImpl implements IUserService{
 	
 	@Override
 	public UserDto loginUser(UserLoginDto userLoginDto) {
-	    User loginUser = this.iUserRepo.findByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
+		User loginUser = null;
+	    try {
+	        loginUser = this.iUserRepo.findByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
+	        if (loginUser == null) {
+	            throw new ResourceNotFoundException("User", userLoginDto.getEmail());
+	        }
+	    } catch (NoResultException e) {
+	        throw new ResourceNotFoundException("User", userLoginDto.getEmail());
+	    }
+	    
 	    return this.modelMapper.map(loginUser, UserDto.class);
 	}
 
