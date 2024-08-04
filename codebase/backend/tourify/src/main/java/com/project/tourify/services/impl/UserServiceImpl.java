@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.tourify.dtos.UserDto;
@@ -32,11 +33,13 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	private ModelMapper modelMapper;
 	
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public UserDto createUser(UserDto userDto) {
 		  User user = this.modelMapper.map(userDto, User.class);
+		  user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		  User savedUser = this.iUserRepo.save(user);
 		return this.modelMapper.map(savedUser, UserDto.class);
 	}
@@ -46,7 +49,8 @@ public class UserServiceImpl implements IUserService{
 		User user = this.iUserRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 	    user.setName(userDto.getName());
 	    user.setPhone(userDto.getPhone());
-	    user.setPassword(userDto.getPassword());
+//	    user.setPassword(userDto.getPassword());
+	    user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
 	    user.setAddress(userDto.getAddress());
 		User updatedUser = this.iUserRepo.save(user);
 		return this.modelMapper.map(updatedUser, UserDto.class);
