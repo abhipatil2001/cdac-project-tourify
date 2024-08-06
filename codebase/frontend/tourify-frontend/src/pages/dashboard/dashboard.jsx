@@ -1,10 +1,13 @@
 import React from "react";
+import AfterLoginNavbar from "../../components/afterLoginNavbar/afterLoginNavbar";
+import Cities from "../../components/cities/cities";
 
 const Dashboard = () => {
   return (
-    <>
-      <h1>This is dashboard page</h1>
-    </>
+    <div>
+      <AfterLoginNavbar />
+      <Cities />
+    </div>
   );
 };
 

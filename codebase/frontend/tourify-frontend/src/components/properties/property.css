@@ -1,0 +1,14 @@
+.myCards{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.myCardText{
+    text-align: justify;
+}
+
+.myCardImg{
+    height: 300px;
+}

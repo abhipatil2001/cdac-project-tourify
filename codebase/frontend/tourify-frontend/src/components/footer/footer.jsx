@@ -1,4 +1,3 @@
-import React from "react";
 import {
   MDBBtn,
   MDBCol,
@@ -7,6 +6,7 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
+import React from "react";
 import "./footer.css";
 
 const Footer = () => {
