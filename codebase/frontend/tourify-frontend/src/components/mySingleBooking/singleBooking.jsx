@@ -19,12 +19,12 @@ const SingleBooking = ({ booking }) => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body2" color="text.secondary">
-                  From: {format(new Date(booking.from_date), "PPPpp")}
+                  From: {booking.fromDate}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body2" color="text.secondary">
-                  To: {format(new Date(booking.to_date), "PPPpp")}
+                  To: {booking.toDate}
                 </Typography>
               </Grid>
               <Grid item xs={12}>

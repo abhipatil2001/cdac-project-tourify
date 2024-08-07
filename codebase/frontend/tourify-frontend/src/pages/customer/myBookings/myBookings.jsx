@@ -14,7 +14,7 @@ const MyBookings = () => {
 
   const loadBookings = async () => {
     const result = await getAllBookings();
-    if (result["status"] === "success") {
+    if (result["status"] == "success") {
       setBookings(result["data"]);
       //   toast.success("got the bookings");
     } else toast.error("Unable to get bookings");

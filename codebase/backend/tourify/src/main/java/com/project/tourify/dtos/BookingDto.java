@@ -27,9 +27,9 @@ public class BookingDto {
 	
 	private Long id;
 
-	private LocalDate fromDate;
+	private String fromDate;
 	
-	private LocalDate toDate;
+	private String toDate;
 	
 	private double bill;
 	

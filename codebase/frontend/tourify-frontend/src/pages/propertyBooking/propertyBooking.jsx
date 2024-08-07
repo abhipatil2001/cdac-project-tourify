@@ -30,7 +30,7 @@ function PropertyBooking() {
   };
 
   const formatDate = (date) => {
-    return date ? format(date, "yyyy/MM/dd") : "";
+    return date ? format(date, "yyyy-MM-dd") : "";
   };
 
   const bookProperty = async () => {
