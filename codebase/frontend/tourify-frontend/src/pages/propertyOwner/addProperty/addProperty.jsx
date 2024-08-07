@@ -99,6 +99,7 @@ const AddProperty = () => {
             <option value="301">Villa</option>
             <option value="302">Bungalow</option>
             <option value="303">Mansion</option>
+            <option value="304">House Boat</option>
           </select>
         </div>
 
