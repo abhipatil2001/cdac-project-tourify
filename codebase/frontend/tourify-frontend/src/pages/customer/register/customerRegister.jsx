@@ -57,6 +57,7 @@ const CustomerRegister = () => {
       //   if (result["status"] === "success") {
       if (result.status === "success") {
         toast.success("User Registered successfully");
+        navigate("/customer/login");
       } else {
         toast.error("User Registration failed !!");
       }

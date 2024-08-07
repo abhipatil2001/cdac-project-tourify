@@ -1,5 +1,8 @@
 package com.project.tourify.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.tourify.dtos.UserDto;
 import com.project.tourify.entities.User;
 import com.project.tourify.exceptions.ApiException;
+import com.project.tourify.response.ApiResponse;
 import com.project.tourify.security.JwtAuthRequest;
 import com.project.tourify.security.JwtAuthResponse;
 import com.project.tourify.security.JwtTokenHelper;
@@ -26,6 +31,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth/api")
+//@CrossOrigin(origins = "*")
 public class AuthController {
 
 	@Autowired
@@ -44,7 +50,7 @@ public class AuthController {
 	private ModelMapper modelMapper;
 	
 	@PostMapping("/login")
-	public ResponseEntity<JwtAuthResponse> createToken(@RequestBody JwtAuthRequest request) throws Exception{
+	public ResponseEntity<ApiResponse<JwtAuthResponse>> createToken(@RequestBody JwtAuthRequest request) throws Exception{
 		this.authenticate(request.getUsername(), request.getPassword());
 		
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
@@ -54,7 +60,11 @@ public class AuthController {
 		jwtAuthResponse.setToken(generatedToken);
 		jwtAuthResponse.setUser(this.modelMapper.map((User)userDetails, UserDto.class));
 		
-		return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.OK);
+		List<JwtAuthResponse> list = new ArrayList<>();
+		list.add(jwtAuthResponse);
+		ApiResponse<JwtAuthResponse> response = new ApiResponse<JwtAuthResponse>("success", list);
+		
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	private void authenticate(String username, String password) throws Exception {
@@ -69,9 +79,26 @@ public class AuthController {
 	
 	// register new user api
 	@PostMapping("/register")
-	public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
+	public ResponseEntity<ApiResponse<UserDto>> registerUser(@RequestBody UserDto userDto){
 		UserDto registeredNewUser = this.userService.createUser(userDto);
-		
-		return new ResponseEntity<UserDto>(registeredNewUser, HttpStatus.CREATED);
+	    List<UserDto> userDtoList = new ArrayList<>();
+	    userDtoList.add(registeredNewUser);
+	    ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", userDtoList);
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

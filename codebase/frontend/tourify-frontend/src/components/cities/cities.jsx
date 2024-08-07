@@ -38,8 +38,7 @@ const Cities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  // navigate("/customer/properties/:Agra");
-                  navigate(`/customer/properties/${"Agra"}`);
+                  navigate(`/customer/properties/${"5"}`);
                 }}
               >
                 Let's Visit
@@ -70,7 +69,7 @@ const Cities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate("/customer/properties");
+                  navigate(`/customer/properties/${"6"}`);
                 }}
               >
                 Let's Visit
@@ -101,7 +100,7 @@ const Cities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate("/customer/properties");
+                  navigate(`/customer/properties/${"7"}`);
                 }}
               >
                 Let's Visit
@@ -132,7 +131,7 @@ const Cities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate("/customer/properties");
+                  navigate(`/customer/properties/${"8"}`);
                 }}
               >
                 Let's Visit
@@ -163,7 +162,7 @@ const Cities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate("/customer/properties");
+                  navigate(`/customer/properties/${"9"}`);
                 }}
               >
                 Let's Visit
@@ -194,7 +193,7 @@ const Cities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate("/customer/properties");
+                  navigate(`/customer/properties/${"10"}`);
                 }}
               >
                 Let's Visit

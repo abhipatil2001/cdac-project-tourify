@@ -18,15 +18,15 @@ const PropertyDetails = () => {
   const [property, setProperty] = useState();
   const navigate = useNavigate();
 
-  const { city, id } = useParams();
+  const { placeId, id } = useParams();
 
   useEffect(() => {
     loadProperty();
   }, []);
 
   const loadProperty = async () => {
-    const result = await getPropertyFromCity(city, id);
-    console.log("propertydetails page: ", city, id);
+    const result = await getPropertyFromCity(placeId, id);
+    console.log("propertydetails page: ", placeId, id);
     if (result["status"] === "success" && result.data.length === 1) {
       setProperty(result["data"][0]);
       localStorage.setItem("p_id", result["data"][0].id);

@@ -67,12 +67,22 @@ public class PropertyServiceImpl implements IPropertyService{
 	}
 
 	@Override
+	public List<PropertyDto> getPropsByPlaceIdAndPropId(Long placeId, Long propId) {
+		Place place = new Place();
+		place.setId(placeId);
+		
+		List<Property> findByPlaceIdAndId = this.propertyRepo.findByIdAndPlaceId(propId, place);
+		List<PropertyDto> findByPlaceIdAndIdDto = findByPlaceIdAndId.stream().map(prop -> modelMapper.map(prop, PropertyDto.class)).collect(Collectors.toList());
+		return findByPlaceIdAndIdDto;
+	}
+	
+
+	@Override
 	public List<PropertyDetailsDTO> findPropertiesByUserId(Long userId) {
 		List<PropertyDetailsDTO> propsBasedOnUserId = this.propertyRepo.findPropertiesByUserId(userId);
 		return propsBasedOnUserId;
 	}
-	
-	
+
 
 
 }
