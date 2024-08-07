@@ -69,7 +69,7 @@ const OwnerCities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate(`/owner/add/property/${11}`);
+                  navigate(`/owner/add/property/${6}`);
                 }}
               >
                 Add Property
@@ -100,7 +100,7 @@ const OwnerCities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate(`/owner/add/property/${12}`);
+                  navigate(`/owner/add/property/${7}`);
                 }}
               >
                 Add Property
@@ -131,7 +131,7 @@ const OwnerCities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate(`/owner/add/property/${13}`);
+                  navigate(`/owner/add/property/${8}`);
                 }}
               >
                 Add Property
@@ -162,7 +162,7 @@ const OwnerCities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate(`/owner/add/property/${14}`);
+                  navigate(`/owner/add/property/${9}`);
                 }}
               >
                 Add Property
@@ -193,7 +193,7 @@ const OwnerCities = () => {
                 color="dark"
                 outline
                 onClick={() => {
-                  navigate(`/owner/add/property/${15}`);
+                  navigate(`/owner/add/property/${10}`);
                 }}
               >
                 Add Property

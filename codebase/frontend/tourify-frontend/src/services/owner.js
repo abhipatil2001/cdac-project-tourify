@@ -39,7 +39,6 @@ export async function ownerRegister(
 }
 
 // add property
-
 export async function addProperty(
   title,
   address,
@@ -51,26 +50,26 @@ export async function addProperty(
   user_id
 ) {
   let actualToken = localStorage.getItem("token");
+  let finalToken = "Bearer " + actualToken;
 
   const payload = {
     headers: {
-      token: actualToken, // Assuming token is for authorization
+      Authorization: finalToken, // Assuming token is for authorization
     },
   };
-
   const body = {
     title,
     address,
     rate,
     description,
     img,
-    place_id,
-    category_id,
-    user_id,
+    placeId: place_id,
+    categoryId: category_id,
+    userId: user_id,
   };
 
   const response = await axios.post(
-    `${config.url}/api/properties/add`,
+    `${config.url}/api/property/add`,
     body,
     payload
   );
@@ -81,16 +80,18 @@ export async function addProperty(
 // getting owner properties
 export async function myProperties(poid) {
   let actualToken = localStorage.getItem("token");
+  let finalToken = "Bearer " + actualToken;
 
+  let p_id = localStorage.getItem("po_id");
   const payload = {
     headers: {
-      token: actualToken,
+      Authorization: finalToken, // Assuming token is for authorization
     },
   };
 
   // make API call
   const response = await axios.get(
-    `${config.url}/api/properties/owner/${poid}`,
+    `${config.url}/api/property/owner/${p_id}`,
     payload
   );
 
@@ -100,14 +101,19 @@ export async function myProperties(poid) {
 // owner's profile
 export async function getOwnerProfile() {
   let actualToken = localStorage.getItem("token");
-  // let cust_id = localStorage.getItem("c_id");
+  let finalToken = "Bearer " + actualToken;
+
+  let p_id = localStorage.getItem("po_id");
   const payload = {
     headers: {
-      token: actualToken, // Assuming token is for authorization
+      Authorization: finalToken, // Assuming token is for authorization
     },
   };
 
-  const response = await axios.get(`${config.url}/api/user/profile`, payload);
+  const response = await axios.get(
+    `${config.url}/api/user/get/${p_id}`,
+    payload
+  );
   // console.log("data: ", response.data);
   return response.data;
 }
