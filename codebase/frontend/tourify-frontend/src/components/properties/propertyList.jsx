@@ -22,12 +22,18 @@ const PropertyList = ({ city }) => {
   };
 
   return (
-    <div>
-      <div>
-        {properties.map((property) => {
-          return <Property property={property} />;
-        })}
-      </div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "100%",
+        justifyContent: "center",
+      }}
+    >
+      {properties.map((property) => {
+        return <Property property={property} />;
+      })}
     </div>
   );
 };

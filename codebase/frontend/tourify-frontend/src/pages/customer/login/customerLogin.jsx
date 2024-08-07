@@ -37,10 +37,11 @@ const CustomerLogin = () => {
       toast.warning("enter password");
     } else {
       const result = await login(email, password);
+
       if (result.status === "success") {
-        const token = result.data.token;
-        const name = result.data.name;
-        const id = result.data.id;
+        const token = result?.data[0]?.token;
+        const name = result?.data[0]?.user?.name;
+        const id = result?.data[0]?.user?.id;
 
         localStorage.setItem("token", token);
         localStorage.setItem("name", name);

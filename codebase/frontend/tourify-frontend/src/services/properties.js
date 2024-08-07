@@ -2,37 +2,34 @@ import axios from "axios";
 import config from "../config";
 
 export async function getAllPropsInCity(city) {
+  let actualToken = localStorage.getItem("token");
+  let finalToken = "Bearer " + actualToken;
+
   const payload = {
     headers: {
-      token: localStorage.getItem("token"), // Assuming token is for authorization
+      Authorization: finalToken, // Assuming token is for authorization
     },
   };
 
-  // const response = await axios.get(
-  //   `${config.url}/api/properties/all/Agra`,
-  //   payload
-  // );
-
   const response = await axios.get(
-    `${config.url}/api/properties/all/${city}`,
+    `${config.url}/api/property/place/${city}`,
     payload
   );
   return response.data;
 }
 
-export async function getPropertyFromCity(city, id) {
+export async function getPropertyFromCity(placeId, id) {
+  let actualToken = localStorage.getItem("token");
+  let finalToken = "Bearer " + actualToken;
+
   const payload = {
     headers: {
-      token: localStorage.getItem("token"), // Assuming token is for authorization
+      Authorization: finalToken, // Assuming token is for authorization
     },
   };
 
-  // const response = await axios.get(
-  //   `${config.url}/api/properties/Agra/2`,
-  //   payload
-  // );
   const response = await axios.get(
-    `${config.url}/api/properties/${city}/${id}`,
+    `${config.url}/api/property/propdetails/${placeId}/${id}`,
     payload
   );
   return response.data;

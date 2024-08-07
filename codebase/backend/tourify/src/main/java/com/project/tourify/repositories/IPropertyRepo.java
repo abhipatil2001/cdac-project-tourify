@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.tourify.dtos.PropertyDetailsDTO;
-import com.project.tourify.dtos.PropertyDto;
 import com.project.tourify.entities.Place;
 import com.project.tourify.entities.Property;
 import com.project.tourify.entities.User;
@@ -22,6 +21,8 @@ public interface IPropertyRepo extends JpaRepository<Property, Long> {
     List<Property> findByPlaceId(Place place);
     
     List<Property> findByUserIdAndPlaceId(User user, Place place);
+    
+    List<Property> findByIdAndPlaceId(Long id, Place placeId);
     
     // JPQL / HQL
     

@@ -41,7 +41,7 @@ function App() {
           element={<PropertyHome />}
         />
         <Route
-          path="/customer/propertydetails/:city/:id"
+          path="/customer/propertydetails/:placeId/:id"
           element={<PropertyDetails />}
         />
         <Route path="/customer/booking" element={<PropertyBooking />} />
