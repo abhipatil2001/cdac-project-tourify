@@ -37,7 +37,6 @@ public class BookingDto2 {
 	
 	private Long propertyId;
 	
-	
 	private Long statusId;
 	
 }
