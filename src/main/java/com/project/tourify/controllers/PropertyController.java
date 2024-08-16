@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.tourify.dtos.CategoryDetailsDto;
 import com.project.tourify.dtos.PropertyDetailsDTO;
 import com.project.tourify.dtos.PropertyDto;
 import com.project.tourify.entities.Property;
@@ -28,9 +29,10 @@ public class PropertyController {
 	
 	@PostMapping("/add")
 	public ApiResponse<PropertyDto> addProperty(@RequestBody PropertyDto propertyDto){
+		System.out.println("property Dto " + propertyDto);
 		PropertyDto addedProperty = this.propertyService.addProperty(propertyDto);
 		List<PropertyDto> propDtoList = new ArrayList<>();
-		propDtoList.add(addedProperty);
+		System.out.println(propDtoList.add(addedProperty));
 		
 		ApiResponse<PropertyDto> response = new ApiResponse<>("success", propDtoList);
 		return response;
@@ -61,11 +63,17 @@ public class PropertyController {
     	return response;
     }
     
-    // get all properties based on user Id
+    // get all properties   on user Id
     @GetMapping("/owner/{id}")
     public ApiResponse<PropertyDetailsDTO> getPropsBasedOnUserId(@PathVariable(name = "id") Long userId) {
     	List<PropertyDetailsDTO> propsDto = this.propertyService.findPropertiesByUserId(userId);
     	 return new ApiResponse<>("success", propsDto);
+    }
+    
+    @GetMapping("/categories")
+    public ApiResponse<CategoryDetailsDto> getAllCategories(){
+    	List<CategoryDetailsDto> categoryDetailsDtos = this.propertyService.getAllCategory();
+    	return new ApiResponse<CategoryDetailsDto>("success",categoryDetailsDtos);
     }
 	
 }

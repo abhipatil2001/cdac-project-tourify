@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.project.tourify.services.IUserService;
 
 @RestController
 @RequestMapping("/api/user")
+//@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired
@@ -30,15 +32,10 @@ public class UserController {
 	// Login User
 	@PostMapping("/login")
 	public ResponseEntity<ApiResponse<UserDto>> loginUser(@RequestBody UserLoginDto userLoginDto) {
-		ApiResponse<UserDto> response = null;
-		try {			
-			UserDto loginUser = this.userService.loginUser(userLoginDto);
-			List<UserDto> userDtoList = new ArrayList<>();
-			userDtoList.add(loginUser);
-			response = new ApiResponse<UserDto>("success", userDtoList);
-		}catch(RuntimeException e) {
-		  e.printStackTrace();
-		}
+		UserDto loginUser = this.userService.loginUser(userLoginDto);
+		List<UserDto> userDtoList = new ArrayList<>();
+	    userDtoList.add(loginUser);
+	    ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", userDtoList);
 	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	

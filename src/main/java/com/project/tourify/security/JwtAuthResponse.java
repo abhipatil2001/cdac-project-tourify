@@ -19,4 +19,6 @@ public class JwtAuthResponse {
 	
 	private UserDto user;
 	
+	private String status;
+	
 }

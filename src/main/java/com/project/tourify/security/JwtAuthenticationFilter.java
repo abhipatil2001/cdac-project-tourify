@@ -2,6 +2,7 @@ package com.project.tourify.security;
 
 import java.io.IOException;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -64,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		// Once we get the token..now validate
 		if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-			
+			System.out.println("user details " + userDetails);
 			if(this.jwtTokenHelper.validateToken(token, userDetails)) {
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -75,7 +76,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		}else {
 			System.out.println("Username is null or context is not null");
 		}
-		
+		System.out.println(request);
 		filterChain.doFilter(request, response);
 	}
 

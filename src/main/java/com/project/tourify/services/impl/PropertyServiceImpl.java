@@ -7,11 +7,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.tourify.dtos.CategoryDetailsDto;
 import com.project.tourify.dtos.PropertyDetailsDTO;
 import com.project.tourify.dtos.PropertyDto;
+import com.project.tourify.entities.Category;
 import com.project.tourify.entities.Place;
 import com.project.tourify.entities.Property;
 import com.project.tourify.entities.User;
+import com.project.tourify.jpa.ICategory;
 import com.project.tourify.jpa.IPlaceRepo;
 import com.project.tourify.jpa.IPropertyRepo;
 import com.project.tourify.services.IPropertyService;
@@ -28,10 +31,15 @@ public class PropertyServiceImpl implements IPropertyService{
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@Autowired
+	private ICategory categoryrepo;
+	
 	@Override
 	public PropertyDto addProperty(PropertyDto propertyDto) {
+		System.out.println("propertyDto" + propertyDto);
 		Property property = this.modelMapper.map(propertyDto, Property.class);
 		Property savedProperty = propertyRepo.save(property);
+		System.out.println("savedProperty"  + savedProperty);
 		return this.modelMapper.map(savedProperty, PropertyDto.class);
 	}
 
@@ -71,8 +79,15 @@ public class PropertyServiceImpl implements IPropertyService{
 		List<PropertyDetailsDTO> propsBasedOnUserId = this.propertyRepo.findPropertiesByUserId(userId);
 		return propsBasedOnUserId;
 	}
-	
-	
 
+	@Override
+	public List<CategoryDetailsDto> getAllCategory() {
+		List<Category> allcategories = categoryrepo.findAll();
+		List<CategoryDetailsDto> allCategoryDtos = allcategories.stream().map(prop -> modelMapper.map(prop, CategoryDetailsDto.class)).collect(Collectors.toList());
+		return allCategoryDtos;
+	}
+	
+	
+    
 
 }

@@ -54,6 +54,7 @@ public class AuthController {
 		JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
 		jwtAuthResponse.setToken(generatedToken);
 		jwtAuthResponse.setUser(this.modelMapper.map((User)userDetails, UserDto.class));
+		jwtAuthResponse.setStatus("success"); // Set status to success   added by me
 		if(jwtAuthResponse != null)
 			System.out.println(jwtAuthResponse);
 		return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.OK);
