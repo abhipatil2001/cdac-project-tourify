@@ -3,38 +3,73 @@ import { Form, FormGroup, Label, Input, Button, Container, Row, Col, Card } from
 import Sidebar from './sidebar';
 import Header from './header';
 import Footer from './footer';
+import config from '../config';
+import { addprop } from '../services/properties';
+import { toast } from 'react-toastify';
 
 const AddProperty = () => {
   const [propertyDetails, setPropertyDetails] = useState({
     title: '',
     address: '',
     description: '',
-    placeId: '',
-    categoryId: '',
+    place_id: '',
+    category_id: '',
     rate: '',
   });
 
   const [categories, setCategories] = useState([]);
   const [places, setPlaces] = useState([]);
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+  
+  // useEffect(() => {
+  //   const ownerId = sessionStorage.getItem('ownerId');
+  //   if (ownerId) {
+  //     setPropertyDetails((prevDetails) => ({
+  //       ...prevDetails,
+  //       userId: ownerId
+  //     }));
+  //   }
+  // }, []); 
 
   useEffect(() => {
-    // Fetch categories and places
-    const fetchData = async () => {
+    async function fetchData() {
       try {
-        const categoryResponse = await fetch('/api/categories');
+        const categoryResponse = await fetch(`${config.url}/propertyOwner/categories`, {
+          headers: {
+            token: sessionStorage.getItem('token'),
+          },  
+        });
         const categoryData = await categoryResponse.json();
-        setCategories(categoryData);
-
-        const placeResponse = await fetch('/api/places');
+        if (categoryData.status === 'success') {
+          setCategories(categoryData.data); // Set the data array
+        } else {
+          console.error('Error fetching categories:', categoryData.error);
+        }
+  
+        const placeResponse = await fetch(`${config.url}/propertyOwner/places`, {
+          headers: {
+            token: sessionStorage.getItem('token'),
+          },
+        });
         const placeData = await placeResponse.json();
-        setPlaces(placeData);
+        console.log('Place Data:', placeData);
+  
+        if (placeData.status === 'success') {
+          setPlaces(placeData.data); // Set the data array
+        } else {
+          console.error('Error fetching places:', placeData.error);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };
-
+    }
+  
     fetchData();
   }, []);
+  
+  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,9 +81,32 @@ const AddProperty = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Submit form logic here
-    console.log(propertyDetails);
   };
+
+  const submitProperty = async () => {
+    try {
+      const result = await addprop(propertyDetails);
+      console.log('Submit Property Response:', result);
+      if (result.data['status'] === "success") {
+        toast.success("New property added successfully");
+        setMessage('Property added successfully.');
+        setIsSuccess(true);
+      } else {
+        setMessage('Failed to add property.');
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      console.error('Error adding property:', error);
+      setMessage('Failed to add property.');
+      setIsSuccess(false);
+    }
+  };
+  
+
+ const messageStyle = {
+  color: isSuccess ? 'green' : 'red',
+  marginTop: '10px'
+};
 
   return (
     <>
@@ -119,15 +177,15 @@ const AddProperty = () => {
                     <Label for="category">Category</Label>
                     <Input
                       type="select"
-                      name="categoryId"
-                      id="categoryId"
-                      value={propertyDetails.categoryId}
+                      name="category_id"
+                      id="category_id"
+                      value={propertyDetails.category_id}
                       onChange={handleChange}
                       required
                     >
                       <option value="">Select category</option>
                       {categories.map(category => (
-                        <option key={category.id} value={category.id}>{category.name}</option>
+                        <option key={category.id} value={category.id}>{category.category}</option>
                       ))}
                     </Input>
                   </FormGroup>
@@ -135,9 +193,9 @@ const AddProperty = () => {
                     <Label for="placeId">Place</Label>
                     <Input
                       type="select"
-                      name="placeId"
-                      id="placeId"
-                      value={propertyDetails.placeId}
+                      name="place_id"
+                      id="place_id"
+                      value={propertyDetails.place_id}
                       onChange={handleChange}
                       required
                     >
@@ -172,7 +230,10 @@ const AddProperty = () => {
                       required
                     />
                   </FormGroup> */}
-                  <Button className="mb-4 mt-4"color="primary" type="submit">Submit</Button>
+                  <div>
+                  <Button className="mb-4 mt-4"color="primary" type="submit" onClick={submitProperty}>Submit</Button>
+                  {message && <p style={messageStyle}>{message}</p>}
+                  </div>
                 </Form>
               </Col>
             </Card>

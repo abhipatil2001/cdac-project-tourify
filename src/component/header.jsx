@@ -1,6 +1,14 @@
 // import '../styles/header.css';
+import { useEffect } from 'react';
 import { Card, CardBody, CardTitle, Container, Row, Col } from 'react-bootstrap';
 function Header({showCards, className}) {
+  // useEffect( () => {
+  //   async function fetchData(){
+    
+  //   }
+  // })
+
+  // }
   return (
     <>
       <div className={`header bg-gradient-info pb-8 pt-5 pt-md-8 ${className || ''}`}>
@@ -87,7 +95,7 @@ function Header({showCards, className}) {
                     </Row>
                     <p className="mt-3 mb-0 text-muted text-sm">
                       <span className="text-warning mr-2">
-                        <i className="fas fa-arrow-down" /> 4
+                        <i className="fas fa-arrow-down" /> 5
                       </span>
                       <span className="text-nowrap">update last Month</span>
                     </p>
