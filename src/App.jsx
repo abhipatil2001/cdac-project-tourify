@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Route, Routes } from 'react-router-dom';
 import RegisterOwner from './page/register';
 import Home from './page/Home';
-import './styles.css';
+// import './styles.css';
 // import './styles/tourify.css'
 import './assets/plugins/nucleo/css/nucleo.css'
 import './assets/css/argon-dashboard-react.css'
