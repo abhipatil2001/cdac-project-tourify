@@ -90,14 +90,48 @@ router.get('/profile/', (request,response)=>{
     })
 });
 
-router.post('/addProperty', (request,response)=>{
-    // const{from_date, to_date, user_id = request.userId, property_id, status_id, bill, }
-    const{title, address, rate, description, place_id, category_id} = request.body
-    const statement = `insert into properties_tb(title, address, rate, description, place_id, category_id) values(?, ?, ?, ?, ?, ?)`
-    db.pool.execute(statement, [title, address, rate, description, place_id, category_id], (error, result)=>{
-    response.send(utils.createResult(error, result))
-    })
-})
+router.post('/addProperty', (request, response) => {
+    const { title, address, rate, description, place_id, category_id, user_id } = request.body;
+    console.log('Request Headers:', request.headers);
+    console.log('Request Body:', request.body);
+    console.log('Title:', title);
+    console.log('Address:', address);
+    console.log('Rate:', rate);
+    console.log('Description:', description);
+    console.log('Place ID:', place_id);
+    console.log('Category ID:', category_id);
+    console.log('User ID:', user_id);
+    const statement = `insert into properties_tb(title, address, rate, description, place_id, category_id, user_id) values(?, ?, ?, ?, ?, ?, ?)`;
+    db.pool.execute(statement, [title, address, rate, description, place_id, category_id, user_id], (error, result) => {
+        if (error) {
+            console.error('Database Error:', error); // Log the error
+            response.send(utils.createResult(error, null)); // Send the error in the response
+        } else {
+            response.send(utils.createResult(null, result)); // Send the result in the response
+            console.log(result);
+        }
+    });
+});
+
+
+// router.post('/addProperty', (request,response)=>{
+//     // const{from_date, to_date, user_id = request.userId, property_id, status_id, bill, }
+//     const{title, address, rate, description, place_id, category_id, user_id} = request.body
+//     console.log('Request Headers:', request.headers);
+//     console.log('Request Body:', request.body);
+//     const statement = `insert into properties_tb(title, address, rate, description, place_id, category_id, user_id) values(?, ?, ?, ?, ?, ?, ?)`
+//     db.pool.execute(statement, [title, address, rate, description, place_id, category_id, user_id], (error, result)=>{
+//         // response.send(utils.createResult(error, result))
+//         if (error) {
+//             console.error('Database Error:', error); // Add this line
+//             response.send(utils.createResult(error, result));
+//         } else {
+//             response.send(utils.createResult(null, result));
+//             console.log(result);
+//         }
+//     console.log(result)
+//     })
+// })
 
 router.get('/bookings/:ownerId', (request, response) => {
     const ownerId = request.params.ownerId; // Get owner ID from request parameters
@@ -154,6 +188,64 @@ router.get('/categories', (request, response)=>{
 router.get('/places', (request, response)=>{
     const statement = `select id, name from places_tb;`
     db.pool.execute(statement, (error, result) => {
+        if(error){
+            response.send(utils.createErrorResult(error));
+        }else{
+            if(result.length > 0){
+                response.send(utils.createSuccessResult(result));
+            }else{
+                response.send(utils.createErrorResult("no categories available"))
+            }
+        }
+    })
+})
+
+router.get('/noOfproperties/:ownerId', (request, response)=>{
+    const statement = `select count(*) from properties_tb where user_id = ?;`
+    const user_id = request.params.ownerId;
+    db.pool.execute(statement, [user_id], (error, result) => {
+        if(error){
+            response.send(utils.createErrorResult(error));
+        }else{
+            if(result.length > 0){
+                response.send(utils.createSuccessResult(result));
+            }else{
+                response.send(utils.createErrorResult("no categories available"))
+            }
+        }
+    })
+})
+
+router.get('/totalBookings/:ownerId', (request, response)=>{
+    const statement = `select * from roles_tb;
+select * from bookings_tb;
+select count(*) from bookings_tb b 
+INNER JOIN 
+properties_tb p On p.id = b.property_id 
+INNER JOIN
+users_tb u On u.id = p.user_id
+WHERE P.user_id = 2;`
+    const user_id = request.params.ownerId;
+    db.pool.execute(statement, [user_id], (error, result) => {
+        if(error){
+            response.send(utils.createErrorResult(error));
+        }else{
+            if(result.length > 0){
+                response.send(utils.createSuccessResult(result));
+            }else{
+                response.send(utils.createErrorResult("no categories available"))
+            }
+        }
+    })
+})
+
+router.get('/totalRevenue/:ownerId', (request, response)=>{
+    const statement = `select sum(bill) from bookings_tb b
+INNER JOIN 
+properties_tb p ON p.id = b.property_id
+where p.user_id = 2;`
+    const user_id = request.params.ownerId;
+    db.pool.execute(statement, [user_id], (error, result) => {
         if(error){
             response.send(utils.createErrorResult(error));
         }else{
