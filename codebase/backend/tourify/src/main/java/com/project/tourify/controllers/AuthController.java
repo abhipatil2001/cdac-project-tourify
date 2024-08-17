@@ -26,6 +26,7 @@ import com.project.tourify.security.JwtAuthRequest;
 import com.project.tourify.security.JwtAuthResponse;
 import com.project.tourify.security.JwtTokenHelper;
 import com.project.tourify.services.IUserService;
+import com.project.tourify.services.impl.EmailService;
 
 import jakarta.validation.Valid;
 
@@ -48,6 +49,9 @@ public class AuthController {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+    @Autowired
+    private EmailService emailService;
 	
 	@PostMapping("/login")
 	public ResponseEntity<ApiResponse<JwtAuthResponse>> createToken(@RequestBody JwtAuthRequest request) throws Exception{
@@ -81,17 +85,21 @@ public class AuthController {
 	@PostMapping("/register")
 	public ResponseEntity<ApiResponse<UserDto>> registerUser(@RequestBody UserDto userDto){
 		UserDto registeredNewUser = this.userService.createUser(userDto);
+		
+		// let's send a welcome email to the user
+		emailService.sendRegistrationEmail(
+											registeredNewUser.getEmail(), 
+											"Welcome to Tourify !!", 
+											"Dear " + registeredNewUser.getName() + ",\n\nThank you for registering with us!");
+		
+		
+		
 	    List<UserDto> userDtoList = new ArrayList<>();
 	    userDtoList.add(registeredNewUser);
 	    ApiResponse<UserDto> response = new ApiResponse<UserDto>("success", userDtoList);
 	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
-
-
-
-
-
 
 
 
