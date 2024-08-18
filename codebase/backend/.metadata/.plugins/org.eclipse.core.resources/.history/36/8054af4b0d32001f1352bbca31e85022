@@ -1,0 +1,50 @@
+package com.project.tourify.entities;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "properties_tb")
+public class Property {
+
+	// fields
+	private Long id;
+	
+	private String title;
+	
+	private String address;
+	
+	private double rate;
+	
+	private String description;
+	
+	private String img;
+	
+	@Column(name = "isDeleted", nullable = false)
+    private Boolean isDeleted = false;
+	
+	@Column(name = "created_at", nullable = false, updatable = false)
+	private LocalDateTime createdAt;
+	
+	// add FK: place_id, category_id, user_id
+	@ManyToOne
+	@JoinColumn(name = "place_id")
+	private Place placeId;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category categoryId;
+	
+	//Methods
+	
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+	}
+}

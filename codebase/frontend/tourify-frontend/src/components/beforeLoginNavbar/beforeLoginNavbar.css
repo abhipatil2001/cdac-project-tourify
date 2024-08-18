@@ -1,0 +1,27 @@
+.heading{
+    display: inline-flex;
+}
+
+.loginBtn{
+    position: relative;
+    margin-left: 980px;
+/* 
+    width: max-content;
+    margin-top: 25px; */
+}
+
+.myBtn{
+    width: max-content;
+    height: 50px;
+    margin-top: 15px;
+    color: black;
+    background-color: #0066ff;
+}
+
+.myBtn:hover{
+    background-color: #09459e;
+}
+
+.myH1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
