@@ -1,0 +1,32 @@
+
+/* profile page css */
+/* Add to your CSS */
+.header-bg {
+  background: url('../assets/img/theme/banner1.jpg') no-repeat center center;
+  min-height: 600px;
+  background-size: cover;
+  background-position: center top;
+}
+/* Add to your CSS */
+.profile-card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.5s;
+}
+
+/* Add to your CSS */
+.container-fluid {
+  padding: 20px;
+}
+
+.profile-card:hover {
+  transform: scale(1.004);
+}
+
+.card-body img {
+  border: 4px solid #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+

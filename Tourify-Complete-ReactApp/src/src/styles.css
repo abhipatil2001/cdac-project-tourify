@@ -1,0 +1,58 @@
+/* before */
+/* body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+    padding: 1rem;
+    background-color: #343a40;
+    color: white;
+} */
+
+/* styles.css */
+
+/* styles.css */
+
+/* after we made home.jsx as d-flex and all... */
+.d-flex {
+    display: flex;
+  }
+  
+  .flex-column {
+    flex-direction: column;
+  }
+  
+  .min-vh-100 {
+    min-height: 100vh;
+  }
+  
+  .flex-fill {
+    flex: 1 1 auto;
+  }
+  
+  .my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .py-3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  .text-muted {
+    color: #6c757d !important;
+  }
+  
+  
