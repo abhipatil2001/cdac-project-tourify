@@ -1,0 +1,5 @@
+package com.project.tourify.entities;
+
+public class User {
+
+}
